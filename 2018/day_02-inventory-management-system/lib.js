@@ -29,9 +29,40 @@ const countInstances = arr => {
     }
     return (hasTwo * hasThree)
 }
+const matchTest = (base, element) => {
+    let failedCount = 0;
+    for(let i = 0; i < element.length; i++){
+        const testLetter = element[i];
+        const baseLetter = base[i];
+        if(testLetter !== baseLetter){
+            failedCount++;
+        }
+        if(failedCount > 1){
+            return false;
+        }
+    }
+    return true;
+}
+
+const getCommonLetters = (str1, str2) => str1.split('').filter((ltr, idx) => ltr === str2[idx]).join('');
+
+const findMatch = arr => {
+    while(arr.length > 1){
+        const base = arr.pop();
+        for(let test of arr){
+            const isMatch = matchTest(base, test);
+            if(isMatch){
+                return getCommonLetters(base, test);
+            }
+        }
+    }
+}
 
 module.exports = {
     getLetterCounts,
     testFor2and3,
     countInstances,
+    matchTest,
+    getCommonLetters,
+    findMatch,
 }
